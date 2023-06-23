@@ -5,7 +5,7 @@ import { NextResponse } from "next/server";
 const stripe = require('stripe')(process.env.STRIPE_SK);
 
 export async function POST(request){
-    await mongooseConnect;
+    await mongooseConnect();
     const data = await request.json();
     const {name, email, city, postalCode, streetAddress, country, productIds} = data;
     const uniqueIds = [...new Set(productIds)];
@@ -30,14 +30,14 @@ export async function POST(request){
     const orderDoc = await Order.create({
         line_items,name,email,city,postalCode,streetAddress,country,paid:false,
     })
-    console.log(orderDoc)
+    
     const session = await stripe.checkout.sessions.create({
         line_items,
         mode: 'payment',
         customer_email: email,
         success_url: process.env.PUBLIC_URL + '/cart?success=1',
         cancel_url: process.env.PUBLIC_URL + '/cart?cancel=1',
-        metadata: {orderId:orderDoc._id.toString()},
+        metadata: {orderId:orderDoc._id.toString(),test:'ok'},
     })
     
     return NextResponse.json({
