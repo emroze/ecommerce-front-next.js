@@ -1,6 +1,5 @@
 import { primary } from "@/lib/colors";
 import { styled , css} from "styled-components"
-import { CustomFont } from "./fonts/CustomFont";
 
 export const ButtonStyle = css`
     border: 0;
@@ -18,6 +17,10 @@ export const ButtonStyle = css`
         margin-right: 5px;
     }
 
+    ${props => props.block && css`
+        display: block;
+        width: 100%;
+    `}
 
     ${props => props.white && !props.outline && css`
         background-color: #fff;
@@ -28,6 +31,18 @@ export const ButtonStyle = css`
         background-color: transparent;
         color: #fff;
         border: 2px solid #fff;
+
+    `}
+
+    ${props => props.black && !props.outline && css`
+        background-color: #000;
+        color: #fff;
+    `}
+
+    ${props => props.black && props.outline && css`
+        background-color: transparent;
+        color: #000;
+        border: 2px solid #000;
 
     `}
 

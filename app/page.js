@@ -1,23 +1,10 @@
 "use client"
 import Featured from "@/components/Featured";
 import Header from "@/components/Header";
-import { createGlobalStyle } from "styled-components"
 import {getProduct} from './getProduct'
 import { useEffect, useState } from "react";
 import NewProducts from "@/components/NewProducts";
-import { CustomFont } from "@/components/fonts/CustomFont";
 
-
-
-
-const GlobalStyle = createGlobalStyle`
-  body{
-    background-color: #eee;
-    padding: 0;
-    margin: 0;
-    font-family: ${CustomFont.className}, sans-serif;
-  }
-`;
 
 export default function Home() {
   // const product = await getData();
@@ -33,11 +20,12 @@ export default function Home() {
   },[])
 
   return (
-    <div className={CustomFont.className}>
-      <GlobalStyle/>
-      <Header/>
-      <Featured product={featuredProduct}/>
-      <NewProducts products={newProducts}/>
+    <div>
+      
+        <Header/>
+        <Featured product={featuredProduct}/>
+        <NewProducts products={newProducts}/>
+     
     </div>
   )
 }
