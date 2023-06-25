@@ -13,8 +13,8 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     // <html lang="en" className={CustomFont.className}>
-    <html lang="en">
-      <body className={CustomFont.className}>
+    <html lang="en" className={CustomFont.className}> 
+      <body >
         <GlobalStyle/>
           <CartContextProviders>
           

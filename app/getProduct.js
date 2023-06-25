@@ -12,3 +12,17 @@ export async function getProduct(){
       newProducts: JSON.parse(JSON.stringify(newProducts)),
     }
   }
+
+
+export async function getAllProduct(){
+    await mongooseConnect();
+    const products = await Product.find({},null,{sort:{'_id':-1}})
+    return {products: JSON.parse(JSON.stringify(products)),}
+}
+
+
+export async function getSingleProduct(id){
+    await mongooseConnect();
+    const product = await Product.findById(id)
+  return {product:JSON.parse(JSON.stringify(product))}
+}
