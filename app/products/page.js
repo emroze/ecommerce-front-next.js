@@ -2,7 +2,7 @@
 import Center from "@/components/Center";
 import Header from "@/components/Header";
 import { styled } from "styled-components";
-import { getAllProduct } from "../getProduct";
+import { getAllProduct } from "../serverSideFunctions";
 import { useEffect, useState } from "react";
 import ProductsGrid from "@/components/ProductsGrid";
 import Title from "@/components/Title";

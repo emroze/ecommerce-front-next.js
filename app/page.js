@@ -1,7 +1,7 @@
 "use client"
 import Featured from "@/components/Featured";
 import Header from "@/components/Header";
-import {getProduct} from './getProduct'
+import {getProduct} from './serverSideFunctions'
 import { useEffect, useState } from "react";
 import NewProducts from "@/components/NewProducts";
 

@@ -12,8 +12,12 @@ import { styled } from "styled-components";
 
 const ColumnWrapper = styled.div`
     display: grid;
-    grid-template-columns: 1.2fr .8fr;
+    grid-template-columns: 1fr;
+    @media screen and (min-width: 768px) {
+        grid-template-columns: 1.2fr .8fr;
+    }
     gap: 40px;
+    margin-top: 40px;
 `;
 
 const Box = styled.div`
@@ -23,7 +27,12 @@ const Box = styled.div`
 `;
 
 const QuantityLebel = styled.span`
-    padding: 0 3px;
+    padding: 0 15px;
+    display: block;
+    @media screen and (min-width: 768px){
+        display: inline-block;
+        padding: 0 12px;
+    }
 
 `;
 
@@ -33,9 +42,9 @@ const ProductInfoCell = styled.td`
 `;
 
 const ProductImageBox = styled.div`
-    width: 100px;
+    width: 70px;
     height: 100px;
-    padding: 10px;
+    padding: 2px;
     /* box-shadow: 0 0 10px rgba(0,0,0,.1); */
     border: 1px solid rgba(0,0,0,.1);
     border-radius: 10px;
@@ -43,8 +52,17 @@ const ProductImageBox = styled.div`
     align-items: center;
     justify-content: center;
     img{
-        max-width: 80px;
-        max-height: 80px;
+        max-width: 60px;
+        max-height: 60px;
+    }
+
+    @media screen and (min-width: 768px){
+        padding: 10px;
+        img{
+            max-width: 80px;
+            max-height: 80px;
+        }
+        width: 100px;
     }
 `;
 
