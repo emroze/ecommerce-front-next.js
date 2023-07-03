@@ -10,8 +10,9 @@ export const ButtonStyle = css`
     display: inline-flex;
     align-items: center;
     text-decoration: none;
+    font-family: 'Poppins';
     font-weight: 400;
-    
+    font-size: 14px;
     svg{
         height: 20px;
         margin-right: 5px;

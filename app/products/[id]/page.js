@@ -3,6 +3,7 @@ import { getSingleProduct } from "@/app/serverSideFunctions"
 import Button from "@/components/Button"
 import { CartContext } from "@/components/CartContext"
 import Center from "@/components/Center"
+import FlyingButton from "@/components/FlyingButton"
 import Header from "@/components/Header"
 import ProductImages from "@/components/ProductImages"
 import Title from "@/components/Title"
@@ -60,7 +61,8 @@ export default function ProductPage({params}){
                                 </Price>
                             </div>
                             <div>
-                                <Button primary={1} onClick={() => addProduct(singleProduct._id)}><Cart/>Add to cart</Button>
+                                {/* <Button primary={1} onClick={() => addProduct(singleProduct._id)}><Cart/>Add to cart</Button> */}
+                                <FlyingButton main _id={singleProduct._id} src={singleProduct?.images}><Cart/>Add to cart</FlyingButton>
                             </div>
                         </PriceRow>
                     </div>

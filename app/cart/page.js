@@ -6,6 +6,7 @@ import CheckoutForm from "@/components/CheckoutForm";
 import Header from "@/components/Header";
 import Table from "@/components/Table";
 import axios from "axios";
+import { RevealWrapper } from "next-reveal";
 import { useContext, useEffect, useState } from "react";
 import { styled } from "styled-components";
 
@@ -128,56 +129,60 @@ export default function Cart(){
             <Center>
              
                 <ColumnWrapper>
-                    <Box>
-                        {!cartProducts?.length && (
-                            <div>Your cart is empty</div>
-                        )}
-                        <h2>Cart</h2>
-                        {products?.length>0 && (
-                        <Table>
-                            <thead>
-                                <tr>
-                                    <th>Product</th>
-                                    <th>Quantity</th>
-                                    <th>Price</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {products?.map(product => (
-                                    <tr key={product._id}>
-                                        <ProductInfoCell>
-                                            <ProductImageBox>
-                                                <img src={product.images[0]} alt=''/>
-                                            </ProductImageBox>
-                                            {product.title.length > 20 ? (product.title.slice(0,20).toString()+'....') : product.title}                                          
-                                        </ProductInfoCell>
-                                        <td>
-                                            <Button
-                                            onClick={()=>lessOfThisProduct(product._id)}>-</Button>
-                                            <QuantityLebel>
-                                                {cartProducts.filter(id => id===product._id).length}
-                                            </QuantityLebel>
-                                            <Button
-                                                onClick={() => moreOfThisProduct(product._id)}>+</Button>
-                                        </td>
-                                        <td>${cartProducts.filter(id => id===product._id).length * product.price}</td>
-                                    </tr>
-                                ))}
-                                <tr>
-                                    <td></td>
-                                    <td>Total</td>
-                                    <td>{total}</td>
-                                </tr>
-                            </tbody>
-                        </Table>
-                        )}
-                    </Box>
-                    
-                    {!!cartProducts?.length && (
+                    <RevealWrapper delay={0}>
                         <Box>
-                            <h2>Order Information</h2>
-                            <CheckoutForm cartProducts={cartProducts}/>
+                            {!cartProducts?.length && (
+                                <div>Your cart is empty</div>
+                            )}
+                            <h2>Cart</h2>
+                            {products?.length>0 && (
+                            <Table>
+                                <thead>
+                                    <tr>
+                                        <th>Product</th>
+                                        <th>Quantity</th>
+                                        <th>Price</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {products?.map(product => (
+                                        <tr key={product._id}>
+                                            <ProductInfoCell>
+                                                <ProductImageBox>
+                                                    <img src={product.images[0]} alt=''/>
+                                                </ProductImageBox>
+                                                {product.title.length > 20 ? (product.title.slice(0,20).toString()+'....') : product.title}                                          
+                                            </ProductInfoCell>
+                                            <td>
+                                                <Button
+                                                onClick={()=>lessOfThisProduct(product._id)}>-</Button>
+                                                <QuantityLebel>
+                                                    {cartProducts.filter(id => id===product._id).length}
+                                                </QuantityLebel>
+                                                <Button
+                                                    onClick={() => moreOfThisProduct(product._id)}>+</Button>
+                                            </td>
+                                            <td>${cartProducts.filter(id => id===product._id).length * product.price}</td>
+                                        </tr>
+                                    ))}
+                                    <tr>
+                                        <td></td>
+                                        <td>Total</td>
+                                        <td>{total}</td>
+                                    </tr>
+                                </tbody>
+                            </Table>
+                            )}
                         </Box>
+                    </RevealWrapper>
+                    {!!cartProducts?.length && (
+                        <RevealWrapper delay={100}>
+                            <Box>
+                                <h2>Order Information</h2>
+                                <CheckoutForm cartProducts={cartProducts}/>
+                            </Box>
+                        </RevealWrapper>
+                        
                     )}
                     
                     
