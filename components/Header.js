@@ -4,6 +4,7 @@ import Center from "./Center";
 import { useContext, useState } from "react";
 import { CartContext } from "./CartContext";
 import BarsIcon from "./icons/Bars";
+import SearchIcon from "./icons/SearchIcon";
 
 
 const StyledHeader = styled.header`
@@ -23,8 +24,8 @@ const Logo = styled(Link)`
 const Wrapper = styled.div`
     display: flex;
     justify-content: space-between;
-    padding: 20px 0;
-    
+    padding: 10px 0;
+    align-items: center;
     ${props => props.mobilenavactive ? `
         position: fixed;
         top: 0;
@@ -65,6 +66,7 @@ const NavLink = styled(Link)`
     color: #aaa;
     text-decoration: none;
     padding: 10px 0;
+    min-width: 20px;
 `;
 
 const NavButton = styled.button`
@@ -76,9 +78,26 @@ const NavButton = styled.button`
     cursor: pointer;
     position: relative;
     z-index: 3;
-    
+    display: flex;
+    align-items: center;
     @media screen and (min-width: 768px) {
         display: none;
+    }
+`;
+
+const SideIcons = styled.div`
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    a{
+        display: flex;
+        align-items: center;
+        min-width: 20px;
+        color: white;
+        svg{
+            height: 16px;
+            width: 16px;
+        }
     }
 `;
 
@@ -99,9 +118,12 @@ export default function Header(){
                             <NavLink href={'/account'}>Account</NavLink>
                             <NavLink href={'/cart'}>Cart ({cartProducts?.length})</NavLink>
                         </StyledNav>
-                        <NavButton onClick={() => setMobileNavActive(prev => !prev)}>
-                            <BarsIcon/>
-                        </NavButton>
+                        <SideIcons>
+                            <Link href={'/search'}><SearchIcon/></Link>
+                            <NavButton onClick={() => setMobileNavActive(prev => !prev)}>
+                                <BarsIcon/>
+                            </NavButton>
+                        </SideIcons>
                     </Wrapper>
                 </Center>
             </StyledHeader>

@@ -75,7 +75,7 @@ export default function Featured({product}){
                                 <Desc>{product?.description}</Desc>
                                 <ButtonWrapper>
                                     <ButtonLink href={'/products/'+product?._id} outline={1} white={1}>Read more</ButtonLink>
-                                    <FlyingButton white _id={product._id} src={product?.images?.[0]}>
+                                    <FlyingButton white={1} _id={product._id} src={product?.images?.[0]}>
                                         <Cart/>
                                         Add to cart
                                     </FlyingButton>
