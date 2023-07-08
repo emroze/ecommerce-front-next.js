@@ -10,6 +10,11 @@ export const GlobalStyle = createGlobalStyle`
     margin: 0;
     ${'' /* font-family: ${CustomFont.className}, sans-serif; */}
   }
+  hr{
+    display: block;
+    border: 0;
+    border-top: 1px solid #ccc;
+  }
 `;
 
 

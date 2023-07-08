@@ -44,7 +44,10 @@ export default function SearchPage(){
     function searchProducts(phrase){
         axios.get('/api/products?phrase='+encodeURIComponent(phrase))
             .then(response => {
-                setProducts(response.data);
+                if(phrase.length > 0) {
+                    setProducts(response.data);
+                }
+                
                 setIsLoading(false);
             });
     };
@@ -70,7 +73,7 @@ export default function SearchPage(){
                     <Spinner fullWidth={true}/>
                 )}
 
-                {!isLoading && products.length>0 && (
+                {!isLoading && products.length>0 && phrase.length>0 && (
                     <ProductsGrid products={products}/>
                 )}
                 

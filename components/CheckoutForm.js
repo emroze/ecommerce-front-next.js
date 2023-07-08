@@ -1,9 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Input from "./Input";
 import { styled } from "styled-components";
 import Button from "./Button";
 import axios from "axios";
-import Center from "./Center";
 
 const CityHolder = styled.div`
     display: flex;
@@ -16,6 +15,17 @@ export default function CheckoutForm({cartProducts}){
     const [postalCode, setPostalCode] = useState('');
     const [streetAddress, setStreetAddress] = useState('');
     const [country,setCountry] = useState('');
+
+    useEffect(() => {
+        axios.get('/api/address').then(response => {
+            setName(response.data?.name);
+            setEmail(response.data?.email);
+            setCity(response.data?.city);
+            setPostalCode(response.data?.postalCode);
+            setStreetAddress(response.data?.streetAddress);
+            setCountry(response.data?.country);
+        }); 
+    },[])
 
     async function goToPayment(ev){
         ev.preventDefault()
