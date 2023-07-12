@@ -6,21 +6,26 @@ import { getAllProduct } from "../serverSideFunctions";
 import { useEffect, useState } from "react";
 import ProductsGrid from "@/components/ProductsGrid";
 import Title from "@/components/Title";
+import axios from "axios";
 
 export default function ProductsPage(){
+    const [wishedProducts,setWishedProducts] = useState([]);
     const [products,setProducts] = useState({});
     useEffect(()=>{
-        getAllProduct().then(result =>{
-        setProducts(result.products);
-        }   
-        )
+        axios.get('/api/wishlist').then(response =>{
+            setWishedProducts(response.data);
+
+            getAllProduct().then(result =>{//this part is inside cause we need to update wished products first
+            setProducts(result.products);
+            })
+        })
     },[])
     return(
         <div>
             <Header/>
             <Center>
                 <Title>All Products</Title>
-                <ProductsGrid products={products}/>
+                <ProductsGrid products={products} wishedProducts={wishedProducts}/>
             </Center>
         </div>
     )

@@ -56,22 +56,28 @@ export default function Category({params}){
     const [sort,setSort] = useState(defaultSorting);
     const [loadingProducts,setLoadingProducts] = useState(false);
     const [filtersChanged,setFiltersChanged] = useState(false);
+    const [wishedProducts,setWishedProducts] = useState([]);
 
     useEffect(() => {
-        getSingleCategory(params?.id).then((response) => {
-            setCategory(response.category);
-            setSubCategories(response.subCategories);
-            setProducts(response.products);
-            setFilterValues(
-                response?.category?.properties.map(
-                    p => (
-                        {name:p.name, value:'all'}
+        axios.get('/api/wishlist').then(response =>{
+            setWishedProducts(response.data);
+
+            getSingleCategory(params?.id).then((response) => {
+                setCategory(response.category);
+                setSubCategories(response.subCategories);
+                setProducts(response.products);
+                setFilterValues(
+                    response?.category?.properties.map(
+                        p => (
+                            {name:p.name, value:'all'}
+                        )
                     )
-                )
-            );
-            setDefaultFilterValues(filterValues);
-        }
-        )
+                );
+                setDefaultFilterValues(filterValues);
+            }
+            )
+        })
+
     },[])
 
     useEffect(()=>{
@@ -153,7 +159,7 @@ export default function Category({params}){
                 {!loadingProducts && (
                     <div>
                         {products?.length>0 && (
-                            <ProductsGrid products={...products}/>
+                                <ProductsGrid products={...products} wishedProducts={wishedProducts}/>
                         )}
                         {products?.length ===0 && (
                             <div>

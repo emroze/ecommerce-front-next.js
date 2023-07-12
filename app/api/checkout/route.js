@@ -1,7 +1,9 @@
 import { mongooseConnect } from "@/lib/mongoose";
 import { Order } from "@/models/order";
 import { Product } from "@/models/product";
+import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
+import { authOptions } from "../auth/[...nextauth]/route";
 const stripe = require('stripe')(process.env.STRIPE_SK);
 
 export async function POST(request){
@@ -27,11 +29,21 @@ export async function POST(request){
         }
     }
 
+    const session = await getServerSession(authOptions);
+
     const orderDoc = await Order.create({
-        line_items,name,email,city,postalCode,streetAddress,country,paid:false,
+        line_items,
+        name,
+        email,
+        city,
+        postalCode,
+        streetAddress,
+        country,
+        paid:false,
+        userEmail:session?.user?.email,
     })
     
-    const session = await stripe.checkout.sessions.create({
+    const stripeSession = await stripe.checkout.sessions.create({
         line_items,
         mode: 'payment',
         customer_email: email,
@@ -41,6 +53,6 @@ export async function POST(request){
     })
     
     return NextResponse.json({
-        url:session.url,
+        url:stripeSession.url,
     })
 }

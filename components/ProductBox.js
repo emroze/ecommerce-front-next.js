@@ -2,9 +2,12 @@ import { styled } from "styled-components"
 import Button, { ButtonStyle } from "./Button";
 import CartIcon from "./icons/CartIcon"
 import Link from "next/link";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { CartContext } from "./CartContext";
 import FlyingButton from "./FlyingButton";
+import HeartOutlineIcon from "./icons/HeartOutlineIcon";
+import HeartSolidIcon from "./icons/HeartSolidIcon";
+import axios from "axios";
 
 
 
@@ -26,6 +29,7 @@ const WhiteBox = styled(Link)`
     align-items: center;
     justify-content: center;
     border-radius: 10px;
+    position: relative;
     img{
         max-width: 100%;
         max-height: 80px;
@@ -67,18 +71,56 @@ const Price = styled.div`
 
 `;
 
+const WishlistButton = styled.button`
+    border: 0;
+    width: 40px !important;
+    height: 40px;
+    padding: 10px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    background:none;
+    cursor: pointer;
+    ${props => props.wished ? `
+        color:red;
+    `:`
+        color:black;
+    `}
+    svg{
+        height: 16px;
+        width: 16px;
+    }
+
+`;
 
 
 
-export default function ProductBox({_id,title,description,price,images}){
+export default function ProductBox({
+    _id,title,description,price,images,wished=false,onRemoveFromWishlist=(()=>{})
+}){
     // console.log(_id, title, images);
     const url = '/products/'+_id;
-    
+    const [isWished,setIsWished] = useState(wished);
+    function addToWishList(ev){
+        ev.preventDefault();
+        ev.stopPropagation();
+        const nextValue = !isWished;
+        if(nextValue===false && onRemoveFromWishlist){
+            onRemoveFromWishlist(_id);
+        }
+        axios.post('/api/wishlist',{
+            product:_id,
+        }).then(() => {})
+        setIsWished(nextValue);
+    }
 
     return(
         <ProductWrapper>
             <WhiteBox href={url}>
                 <div>
+                    <WishlistButton wished={isWished? 1:0} onClick={addToWishList}>
+                        {isWished ? <HeartSolidIcon/> : <HeartOutlineIcon/>}
+                    </WishlistButton>
                     <img src={images?.[0]} alt=''></img>  
                 </div>
             </WhiteBox>

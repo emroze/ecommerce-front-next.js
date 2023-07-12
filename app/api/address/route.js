@@ -5,10 +5,9 @@ import { NextResponse } from "next/server";
 import { Address } from "@/models/address";
 
 export async function GET(request){
-    console.log("Still no problem")
     await mongooseConnect();
-    const {user} = await getServerSession(authOptions);
-    const address = await Address.findOne({userEmail:user.email});
+    const session = await getServerSession(authOptions);
+    const address = await Address.findOne({userEmail:session?.user.email});
     return NextResponse.json(address);
 };
 
@@ -16,8 +15,8 @@ export async function GET(request){
 export async function PUT(request){
     const data = await request.json();
     await mongooseConnect();
-    const {user} = await getServerSession(authOptions);
-    const address = await Address.findOne({userEmail:user.email});
+    const session = await getServerSession(authOptions);
+    const address = await Address.findOne({userEmail:session?.user.email});
     if(address){
         return NextResponse.json(await Address.findByIdAndUpdate(address._id, data));
         

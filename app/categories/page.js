@@ -8,6 +8,7 @@ import ProductBox from "@/components/ProductBox";
 import { styled } from "styled-components";
 import Link from "next/link";
 import { RevealWrapper } from "next-reveal";
+import axios from "axios";
 
 const CategoryGrid = styled.div`
     display: grid;
@@ -54,11 +55,16 @@ const ShowAllSquare = styled(Link)`
 export default function Categories() {
   const [mainCategories, setMainCategories] = useState();
   const [categoriesProducts, setCategoriesProducts] = useState();
+  const [wishedProducts,setWishedProducts] = useState([]);
   useEffect(() => {
-    getCategories().then((response) => {
-      setMainCategories(response.mainCategories);
-      setCategoriesProducts(response.categoriesProducts);
-    });
+    axios.get('/api/wishlist').then(response =>{
+      setWishedProducts(response.data);
+
+      getCategories().then((response) => {
+        setMainCategories(response.mainCategories);
+        setCategoriesProducts(response.categoriesProducts);
+      });
+    })
   }, []);
   return (
     <>
@@ -76,7 +82,7 @@ export default function Categories() {
             <CategoryGrid>
               {categoriesProducts[cat._id].map((p,index) => (
                 <RevealWrapper key={p._id} delay={index*50}>
-                  <ProductBox {...p}/>
+                  <ProductBox {...p} wished={wishedProducts.includes(p._id)}/>
                 </RevealWrapper>
               ))}
               <RevealWrapper delay={categoriesProducts[cat._id].length*50}>
