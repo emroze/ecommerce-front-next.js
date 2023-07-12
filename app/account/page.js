@@ -122,6 +122,16 @@ export default function Account(){
                                         )}
                                         {ordersLoaded && (
                                             <>
+                                                {orders.length===0 && (
+                                                    <>
+                                                        {session && (
+                                                            <p>You haven't placed any order yet</p>
+                                                        )}
+                                                        {!session && (
+                                                            <p>Login to see your order(s)</p>
+                                                        )}
+                                                    </>
+                                                )}
                                                 {orders.length>0 && orders.map(o =>(
                                                     <SingleOrder {...o}/>
                                                 ))}
