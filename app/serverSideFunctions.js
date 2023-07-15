@@ -2,10 +2,13 @@
 import { mongooseConnect } from "@/lib/mongoose";
 import { Category } from "@/models/category";
 import { Product } from "@/models/product";
+import { Setting } from "@/models/setting";
 
 export async function getProduct() {
-  const featuredProductId = "64913c54248c4894b430a17d";
   await mongooseConnect();
+  const featureProductSetting = await Setting.findOne({name:'featuredProductId'});
+  const featuredProductId = featureProductSetting.value;
+  
   const featuredProduct = await Product.findById(featuredProductId);
   const newProducts = await Product.find({}, null, { sort: { _id: -1 } });
   return {

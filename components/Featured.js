@@ -37,10 +37,12 @@ const ColumnWrapper = styled.div`
     }
     div:nth-child(1){
         order: 2;
+        margin-left: auto;
+        margin-right: auto;
     }
     @media screen and (min-width: 768px) {
         grid-template-columns: 1.1fr 0.9fr;
-        div:nth-child(1){
+        & > div:nth-child(1){
             order: 0;
         }
         img{
@@ -53,6 +55,10 @@ const Column = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+    text-align: center;
+    @media screen and (min-width: 768px) {
+        text-align: left;
+    }
     /* flex-direction: column; */
 `;
 
@@ -61,6 +67,10 @@ const ButtonWrapper = styled.div`
     gap: 10px;
     margin-top: 25px;
     align-items: center;
+    justify-content: center;
+    @media screen and (min-width: 768px) {
+        justify-content: left;
+    }
 `;
 
 export default function Featured({product}){

@@ -19,6 +19,20 @@ const ColumnWrapper = styled.div`
     }
     gap: 40px;
     margin-top: 40px;
+    table thead tr th:nth-child(3),
+    table tbody tr td:nth-child(3),
+    table tbody tr.subtotal td:nth-child(2){
+        text-align: right;
+    }
+    table tr.subtotal td{
+        padding: 15px 0;
+    }
+    table tbody tr.subtotal td:nth-child(2){
+        font-size: 1.4rem;
+    }
+    table tr.total{
+        font-weight: bold;
+    }
 `;
 
 const Box = styled.div`
@@ -71,7 +85,7 @@ export default function Cart(){
     const {cartProducts,addProduct,removeProduct,clearCart} = useContext(CartContext);
     const [products,setProducts] = useState([]);
     const [isSuccess,setIsSuccess] = useState(false);
-
+    const [shippingFee, setShippingFee] = useState(null);
     useEffect(() => {
         if(cartProducts?.length >0 ){
             axios.post('/api/cart',{ids:cartProducts})
@@ -91,6 +105,9 @@ export default function Cart(){
             setIsSuccess(true);
             clearCart();
         }
+        axios.get('api/settings?name=shippingFee').then(response => {
+            setShippingFee(response?.data.value)
+        })
     },[])
     
     function moreOfThisProduct(id){
@@ -101,10 +118,10 @@ export default function Cart(){
         removeProduct(id)
     }
 
-    let total = 0;
+    let productsTotal = 0;
     for (const productId of cartProducts){
         const price = products.find(p => p._id === productId)?.price || 0;
-        total += price
+        productsTotal += price
     }
 
     if(isSuccess){
@@ -165,10 +182,20 @@ export default function Cart(){
                                             <td>${cartProducts.filter(id => id===product._id).length * product.price}</td>
                                         </tr>
                                     ))}
+                                    <tr className="subtotal">
+                                        <td colSpan={2}>Products Cost</td>
+                                        <td>${productsTotal}</td>
+                                    </tr>
+                                    <tr className="subtotal">
+                                        <td colSpan={2}>Shipping Cost</td>
+                                        <td>${shippingFee}</td>
+                                    </tr>
+                                    <tr className="subtotal total">
+                                        <td colSpan={2}>Total</td>
+                                        <td>${productsTotal+parseInt(shippingFee || 0)}</td>
+                                    </tr>
                                     <tr>
-                                        <td></td>
-                                        <td>Total</td>
-                                        <td>{total}</td>
+                                        <td colSpan={3}>(Use "FIVE" as coupon code on checkout page to get 5 percent discount)</td>
                                     </tr>
                                 </tbody>
                             </Table>

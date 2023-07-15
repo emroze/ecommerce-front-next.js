@@ -118,7 +118,7 @@ export default function Account(){
                                 {activeTab==='Order(s)' && (
                                     <>
                                         {!ordersLoaded && (
-                                            <Spinner fullWidth={1}/>
+                                            <Spinner fullwidth={1}/>
                                         )}
                                         {ordersLoaded && (
                                             <>
@@ -133,7 +133,7 @@ export default function Account(){
                                                     </>
                                                 )}
                                                 {orders.length>0 && orders.map(o =>(
-                                                    <SingleOrder {...o}/>
+                                                    <SingleOrder key={o._id} {...o}/>
                                                 ))}
                                             </>
                                         )}
@@ -142,7 +142,7 @@ export default function Account(){
                                 {activeTab==='Wishlist' && (
                                     <>
                                         {!wishlistLoaded && (
-                                            <Spinner fullWidth={1}/>
+                                            <Spinner fullwidth={1}/>
                                         )}
                                         {wishlistLoaded && (
                                             <>
@@ -172,7 +172,7 @@ export default function Account(){
                         <RevealWrapper delay={100}>
                             <WhiteBox>
                                 {!addressLoaded && (
-                                    <Spinner fullWidth={true}/>
+                                    <Spinner fullwidth={1}/>
                                 )}
                                 
                                 {addressLoaded && session && (

@@ -70,7 +70,7 @@ export default function SearchPage(){
                 )}
 
                 {isLoading && (
-                    <Spinner fullWidth={true}/>
+                    <Spinner fullwidth={1}/>
                 )}
 
                 {!isLoading && products.length>0 && phrase.length>0 && (

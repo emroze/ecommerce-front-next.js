@@ -33,7 +33,6 @@ export default function Home() {
         <Header/>
         <Featured product={featuredProduct}/>
         <NewProducts products={newProducts} wishedProducts={wishedProducts}/>
-     
     </div>
   )
 }

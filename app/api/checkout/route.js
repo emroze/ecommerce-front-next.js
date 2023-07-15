@@ -4,6 +4,7 @@ import { Product } from "@/models/product";
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
 import { authOptions } from "../auth/[...nextauth]/route";
+import { Setting } from "@/models/setting";
 const stripe = require('stripe')(process.env.STRIPE_SK);
 
 export async function POST(request){
@@ -31,6 +32,9 @@ export async function POST(request){
 
     const session = await getServerSession(authOptions);
 
+    const shippingFeeSetting = await Setting.findOne({name:'shippingFee'});
+    const shippingFeeCents = parseInt(shippingFeeSetting.value || '0')*100
+
     const orderDoc = await Order.create({
         line_items,
         name,
@@ -50,6 +54,16 @@ export async function POST(request){
         success_url: process.env.PUBLIC_URL + '/cart?success=1',
         cancel_url: process.env.PUBLIC_URL + '/cart?cancel=1',
         metadata: {orderId:orderDoc._id.toString(),test:'ok'},
+        allow_promotion_codes: true,
+        shipping_options: [
+            {
+                shipping_rate_data:{
+                    display_name: 'shipping fee',
+                    type: 'fixed_amount',
+                    fixed_amount:{amount: shippingFeeCents, currency:'USD'},
+                },
+            }
+        ]
     })
     
     return NextResponse.json({

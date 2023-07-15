@@ -154,7 +154,7 @@ export default function Category({params}){
                     </FilterWrapper>
                 </CategoryHeader>
                 {loadingProducts && (
-                    <Spinner fullWidth/>
+                    <Spinner fullwidth={1}/>
                 )}
                 {!loadingProducts && (
                     <div>

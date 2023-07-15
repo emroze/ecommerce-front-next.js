@@ -6,6 +6,7 @@ import Center from "@/components/Center"
 import FlyingButton from "@/components/FlyingButton"
 import Header from "@/components/Header"
 import ProductImages from "@/components/ProductImages"
+import ProductReviews from "@/components/ProductReviews"
 import Title from "@/components/Title"
 import WhiteBox from "@/components/WhiteBox"
 import Cart from "@/components/icons/CartIcon"
@@ -62,11 +63,14 @@ export default function ProductPage({params}){
                             </div>
                             <div>
                                 {/* <Button primary={1} onClick={() => addProduct(singleProduct._id)}><Cart/>Add to cart</Button> */}
-                                <FlyingButton main _id={singleProduct._id} src={singleProduct?.images}><Cart/>Add to cart</FlyingButton>
+                                <FlyingButton main={1} _id={singleProduct._id} src={singleProduct?.images}><Cart/>Add to cart</FlyingButton>
                             </div>
                         </PriceRow>
                     </div>
                 </ColumnWrapper>
+                {singleProduct._id && (
+                    <ProductReviews product={singleProduct}/>
+                )}
             </Center>
         </>
     )

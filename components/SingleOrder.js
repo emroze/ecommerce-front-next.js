@@ -1,4 +1,6 @@
 import { styled } from "styled-components";
+import {v4 as uuidv4} from 'uuid';
+
 
 const StyledOrder = styled.div`
     margin: 5px 0;
@@ -42,7 +44,7 @@ export default function SingleOrder({line_items,createdAt,...rest}){
             </div>
             <div>
                 {line_items?.map(item => (
-                    <ProductRow>
+                    <ProductRow key={uuidv4()}>
                         <span>{item?.quantity} x </span>
                         {item?.price_data.product_data.name.length>15 
                         ? (item.price_data.product_data.name.slice(0,15)+'...') 
