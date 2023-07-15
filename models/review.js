@@ -4,6 +4,7 @@ const reviewSchema = new Schema({
     title:String,
     description:String,
     stars: Number,
+    email: String,
     product: {type:Schema.Types.ObjectId},
 },{timestamps:true})
 

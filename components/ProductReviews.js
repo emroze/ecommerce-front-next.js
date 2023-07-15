@@ -61,6 +61,15 @@ const ReviewHeader = styled.div`
 
 `;
 
+const EmailWrapper = styled.div`
+    font-size: 0.6rem;
+    font-weight: bold;
+    color: #555;
+    span{
+        color: #333;
+    }
+`;
+
 export default function ProductReviews({product}){
     const [title,setTitle] = useState('');
     const [description,setDescription] = useState('');
@@ -135,6 +144,7 @@ export default function ProductReviews({product}){
                                     <StarsRating size={'sm'} disabled={1} defaultHowMany={review.stars}/>
                                     <time>{prettyDate(review.createdAt)}</time>
                                 </ReviewHeader>
+                                <EmailWrapper><span>User:</span> {review.email}*****@****</EmailWrapper>
                                 <h3>{review.title}</h3>
                                 <p>{review.description}</p>
                             </ReviewWrapper>
