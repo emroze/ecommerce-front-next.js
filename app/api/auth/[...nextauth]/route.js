@@ -8,6 +8,7 @@ import { signOut } from 'next-auth/react'
 
 // export const authOption = NextAuth({
 export const authOptions = {
+  secret: process.env.SECRET,
   providers: [
     // OAuth authentication providers...
     GoogleProvider({
