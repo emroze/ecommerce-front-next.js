@@ -159,7 +159,7 @@ export default function Category({params}){
                 {!loadingProducts && (
                     <div>
                         {products?.length>0 && (
-                                <ProductsGrid products={...products} wishedProducts={wishedProducts}/>
+                                <ProductsGrid products={products} wishedProducts={wishedProducts}/>
                         )}
                         {products?.length ===0 && (
                             <div>
