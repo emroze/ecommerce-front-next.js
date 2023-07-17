@@ -125,7 +125,7 @@ export default function Account(){
                                                 {orders.length===0 && (
                                                     <>
                                                         {session && (
-                                                            <p>You haven't placed any order yet</p>
+                                                            <p>You haven&apos;t placed any order yet</p>
                                                         )}
                                                         {!session && (
                                                             <p>Login to see your order(s)</p>

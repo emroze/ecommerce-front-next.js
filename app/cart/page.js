@@ -195,7 +195,7 @@ export default function Cart(){
                                         <td>${productsTotal+parseInt(shippingFee || 0)}</td>
                                     </tr>
                                     <tr>
-                                        <td colSpan={3}>(Use "FIVE" as coupon code on checkout page to get 5 percent discount)</td>
+                                        <td colSpan={3}>(Use &quot;FIVE&quot; as coupon code on checkout page to get 5 percent discount)</td>
                                     </tr>
                                 </tbody>
                             </Table>
